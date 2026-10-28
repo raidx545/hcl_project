@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Next-Gen University Student Support AI Chatbot featuring glassmorphism design, NLP intent classification, sentiment analysis, and dynamic human escalation.">
+    <title>Avantia University • AI Student Support Hub</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark">
+    <!-- Ambient Floating Glass Orbs Background -->
+    <div class="ambient-glow orb-1"></div>
+    <div class="ambient-glow orb-2"></div>
+    <div class="ambient-glow orb-3"></div>
+    <div class="ambient-glow orb-4"></div>
+    <div class="bg-grid-overlay"></div>
+
+    <div class="app-layout">
+        <!-- ========================================== -->
+        <!-- GLASS SIDEBAR -->
+        <!-- ========================================== -->
+        <aside class="glass-sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-crest">
+                    <img src="assets/logo.jpg" alt="University Logo" class="crest-img" id="brandLogo">
+                    <div class="crest-glow"></div>
+                </div>
+                <div class="brand-text">
+                    <h1 class="brand-title">Avantia University</h1>
+                    <span class="brand-badge">Campus AI Desk v2.5</span>
+                </div>
+                <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close Sidebar">&times;</button>
+            </div>
+
+            <!-- System Status Indicator -->
+            <div class="status-card glass-panel">
+                <div class="status-indicator">
+                    <span class="status-pulse"></span>
+                    <span class="status-text">AI Pipeline Online</span>
+                </div>
+                <div class="status-model-tag">LinearSVC Calibrated • 97.6% F1</div>
+            </div>
+
+            <!-- Session Details & Privacy Card -->
+            <div class="session-card glass-panel">
+                <div class="session-header">
+                    <span class="session-label">Session ID</span>
+                    <button class="copy-session-btn" id="copySessionBtn" title="Copy Session ID">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span id="sessionCopiedToast" class="copied-toast">Copied!</span>
+                    </button>
+                </div>
+                <div class="session-id-display" id="sessionIdDisplay">STU-8F3A29</div>
+
+                <div class="privacy-toggle-wrapper">
+                    <label class="switch">
+                        <input type="checkbox" id="privacyOptOut">
+                        <span class="slider round"></span>
+                    </label>
+                    <div class="privacy-labels">
+                        <span class="privacy-title">PII Storage Opt-Out</span>
+                        <span class="privacy-desc">Do not store chat in DB</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Telemetry Stats -->
+            <div class="telemetry-grid">
+                <div class="telemetry-pill glass-panel">
+                    <span class="telemetry-icon">📚</span>
+                    <div class="telemetry-info">
+                        <span class="telemetry-val" id="statFaqCount">30</span>
+                        <span class="telemetry-key">FAQs in KB</span>
+                    </div>
+                </div>
+                <div class="telemetry-pill glass-panel">
+                    <span class="telemetry-icon">🎫</span>
+                    <div class="telemetry-info">
+                        <span class="telemetry-val" id="statTicketCount">0</span>
+                        <span class="telemetry-key">Escalations</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Demo Test Queries -->
+            <div class="demo-section">
+                <div class="section-title">
+                    <span>💡 Demo Test Scenarios</span>
+                    <span class="section-hint">1-Click Test</span>
+                </div>
+                <div class="demo-btn-group">
+                    <button class="demo-btn" data-query="I haven't received my exam admit card. What should I do?">
+                        <span class="demo-icon">📝</span>
+                        <div class="demo-text">
+                            <strong>Exam Admit Card</strong>
+                            <small>Normal Intent Classification</small>
+                        </div>
+                    </button>
+                    <button class="demo-btn" data-query="Can I pay my semester tuition fees in installments?">
+                        <span class="demo-icon">💳</span>
+                        <div class="demo-text">
+                            <strong>Fee Installments</strong>
+                            <small>SQLite FAQ Similarity Match</small>
+                        </div>
+                    </button>
+                    <button class="demo-btn" data-query="I have complained three times already and nobody is helping. This is totally unacceptable and unfair!">
+                        <span class="demo-icon">⚠️</span>
+                        <div class="demo-text">
+                            <strong>Grievance Escalation</strong>
+                            <small>Negative Sentiment Trigger</small>
+                        </div>
+                    </button>
+                    <button class="demo-btn" data-query="Can you help me with that thing regarding college stuff?">
+                        <span class="demo-icon">❓</span>
+                        <div class="demo-text">
+                            <strong>Ambiguous Query</strong>
+                            <small>Low Confidence (< 60%) Trigger</small>
+                        </div>
+                    </button>
+                    <button class="demo-btn" data-query="What are the hostel curfew hours and outpass rules?">
+                        <span class="demo-icon">🏢</span>
+                        <div class="demo-text">
+                            <strong>Hostel & Curfew Rules</strong>
+                            <small>Hostel Intent Resolution</small>
+                        </div>
+                    </button>
+                    <button class="demo-btn" data-query="What is the late book return fine in the central library?">
+                        <span class="demo-icon">📖</span>
+                        <div class="demo-text">
+                            <strong>Library Book Fine</strong>
+                            <small>Library Intent Retrieval</small>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sidebar Controls Footer -->
+            <div class="sidebar-footer">
+                <div class="footer-btn-row">
+                    <button class="glass-icon-btn" id="themeToggleBtn" title="Toggle Glass Light/Dark Mode">
+                        <span id="themeIcon">🌙</span>
+                    </button>
+                    <button class="glass-icon-btn" id="soundToggleBtn" title="Audio Chime Toggle">
+                        <span id="soundIcon">🔔</span>
+                    </button>
+                    <button class="glass-icon-btn reset-chat-btn" id="resetChatBtn" title="Reset Conversation">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                    </button>
+                </div>
+                <div class="compliance-tag">IEEE/HCLTech AI Ethics Compliant</div>
+            </div>
+        </aside>
+
+        <!-- ========================================== -->
+        <!-- MAIN COCKPIT -->
+        <!-- ========================================== -->
+        <main class="glass-main">
+            <!-- Glass Top Bar -->
+            <header class="glass-topbar">
+                <div class="topbar-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Navigation">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
+                    <!-- View Switcher Tabs -->
+                    <div class="glass-tabs">
+                        <button class="tab-btn active" id="tabChatBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            <span>Student Assistant</span>
+                        </button>
+                        <button class="tab-btn" id="tabAdminBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            <span>Support Ticket Queue</span>
+                            <span class="tab-badge" id="ticketCountBadge">0</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="intent-chips-preview">
+                        <span class="chip-label">Supported Domains:</span>
+                        <span class="intent-pill">Admissions</span>
+                        <span class="intent-pill">Exams</span>
+                        <span class="intent-pill">Fees</span>
+                        <span class="intent-pill">Hostel</span>
+                        <span class="intent-pill">Grievance</span>
+                        <span class="intent-pill">Library</span>
+                    </div>
+                    <button class="manual-escalate-btn" id="openEscalateModalBtn" title="Request Human Escalation">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                        <span>Request Human Agent</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- ========================================== -->
+            <!-- VIEW 1: CHAT INTERFACE -->
+            <!-- ========================================== -->
+            <section class="view-content active" id="chatView">
+                <div class="chat-container">
+                    <div class="messages-scroll" id="messagesContainer">
+                        <!-- Welcome Hero Message -->
+                        <div class="welcome-card glass-panel">
+                            <div class="welcome-header">
+                                <div class="welcome-icon">🎓</div>
+                                <div>
+                                    <h2 class="welcome-title">Welcome to Avantia Student Support AI</h2>
+                                    <p class="welcome-subtitle">Your 24/7 intelligent campus concierge powered by calibrated machine learning.</p>
+                                </div>
+                            </div>
+                            <div class="welcome-features">
+                                <div class="feat-pill"><span class="feat-dot"></span>⚡ Sub-second FAQ retrieval via SQLite Cosine Similarity</div>
+                                <div class="feat-pill"><span class="feat-dot"></span>🎯 97.6% intent accuracy across 6 university domains</div>
+                                <div class="feat-pill"><span class="feat-dot"></span>🛡️ Automatic escalation to Dean/Support on grievance or low confidence</div>
+                                <div class="feat-pill"><span class="feat-dot"></span>🔒 Student PII protection with 1-click opt-out toggle</div>
+                            </div>
+                            <div class="welcome-suggestions">
+                                <span class="suggestion-tag" data-query="How do I get an official college transcript?">📜 Official Transcripts</span>
+                                <span class="suggestion-tag" data-query="What is the hostel Wi-Fi registration process?">📶 Hostel Wi-Fi Setup</span>
+                                <span class="suggestion-tag" data-query="When is the last date for semester fee submission?">💳 Fee Due Dates</span>
+                                <span class="suggestion-tag" data-query="Can I apply for a re-evaluation of my semester exam?">📝 Exam Re-evaluation</span>
+                            </div>
+                        </div>
+
+                        <!-- Initial Assistant Greeting -->
+                        <div class="message-wrapper assistant-wrapper">
+                            <div class="message-avatar">
+                                <img src="assets/logo.jpg" alt="AI Avatar">
+                            </div>
+                            <div class="message-bubble glass-panel">
+                                <div class="message-sender">
+                                    <span>Campus AI Concierge</span>
+                                    <span class="message-time">Just now</span>
+                                </div>
+                                <div class="message-body">
+                                    Hello! I am your <strong>University Student Support AI Assistant</strong>. I am trained to assist you with admissions inquiries, semester examination schedules, fee payments, hostel accommodation, library privileges, and official grievances.
+                                    <br><br>
+                                    How can I assist you with your academics or campus life today?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Typing Indicator -->
+                    <div class="typing-indicator glass-panel" id="typingIndicator">
+                        <div class="typing-avatar">
+                            <img src="assets/logo.jpg" alt="AI">
+                        </div>
+                        <div class="dots-wrapper">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                        <span class="typing-text">AI is analyzing query & computing intent probabilities...</span>
+                    </div>
+
+                    <!-- Input Dock -->
+                    <div class="chat-input-dock">
+                        <div class="quick-chips-bar" id="quickChipsBar">
+                            <button class="quick-chip" data-query="What documents are needed for hostel check-in?">🏢 Hostel Check-in Docs</button>
+                            <button class="quick-chip" data-query="What are the passing marks for end semester exams?">📝 Passing Criteria</button>
+                            <button class="quick-chip" data-query="How do I get a no-dues clearance certificate?">🎓 No-Dues Clearance</button>
+                            <button class="quick-chip" data-query="I want to register a formal complaint about mess food quality.">🍽️ Mess Food Grievance</button>
+                        </div>
+                        <form class="chat-input-form glass-panel" id="chatForm" onsubmit="return false;">
+                            <div class="input-prefix-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                            </div>
+                            <textarea id="chatInput" rows="1" placeholder="Type your campus question here... (e.g., 'When are exams?', 'How to pay fees?')" autocomplete="off"></textarea>
+                            <div class="input-actions">
+                                <button type="button" class="action-btn mic-btn" id="micBtn" title="Speech Dictation (Demo)">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                                </button>
+                                <button type="button" class="send-btn" id="sendBtn" title="Send Query">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="input-footnote">
+                            <span>Press <strong>Enter</strong> to send • AI can make mistakes, always verify critical dates with Registrar Office.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- VIEW 2: SUPPORT TICKET QUEUE (ADMIN) -->
+            <!-- ========================================== -->
+            <section class="view-content" id="adminView">
+                <div class="admin-container">
+                    <div class="admin-header glass-panel">
+                        <div class="admin-title-area">
+                            <div class="admin-badge">Admin Dashboard</div>
+                            <h2>Human-in-the-Loop Escalation Queue</h2>
+                            <p>All queries routed by the Escalation Engine due to low prediction confidence (&lt;60%) or negative student sentiment.</p>
+                        </div>
+                        <div class="admin-actions">
+                            <button class="glass-action-btn" id="refreshTicketsBtn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                                <span>Refresh Queue</span>
+                            </button>
+                            <button class="glass-action-btn export-btn" id="exportTicketsBtn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                <span>Export JSON</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Admin KPI Metrics -->
+                    <div class="admin-kpis">
+                        <div class="kpi-card glass-panel">
+                            <span class="kpi-label">Active Escalations</span>
+                            <span class="kpi-value text-rose" id="kpiTotalTickets">0</span>
+                            <span class="kpi-sub">Assigned to Human Queue</span>
+                        </div>
+                        <div class="kpi-card glass-panel">
+                            <span class="kpi-label">Negative Grievance Triggers</span>
+                            <span class="kpi-value text-amber" id="kpiGrievanceCount">0</span>
+                            <span class="kpi-sub">Priority SLA (&lt; 2 hrs)</span>
+                        </div>
+                        <div class="kpi-card glass-panel">
+                            <span class="kpi-label">Low Confidence Fallbacks</span>
+                            <span class="kpi-value text-cyan" id="kpiLowConfCount">0</span>
+                            <span class="kpi-sub">&lt;60% Calibrated SVM</span>
+                        </div>
+                        <div class="kpi-card glass-panel">
+                            <span class="kpi-label">Avg Student Satisfaction</span>
+                            <span class="kpi-value text-emerald" id="kpiAvgRating">4.9 ★</span>
+                            <span class="kpi-sub">Across 500+ Sessions</span>
+                        </div>
+                    </div>
+
+                    <!-- Filter Controls -->
+                    <div class="table-filter-bar glass-panel">
+                        <div class="search-input-wrap">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" id="ticketSearchInput" placeholder="Filter tickets by ID, query text, or keyword...">
+                        </div>
+                        <div class="filter-dropdowns">
+                            <select id="filterIntentSelect" class="glass-select">
+                                <option value="all">All Intents</option>
+                                <option value="admissions">Admissions</option>
+                                <option value="exams">Exams</option>
+                                <option value="fees">Fees</option>
+                                <option value="hostel">Hostel</option>
+                                <option value="grievance">Grievance</option>
+                                <option value="library">Library</option>
+                                <option value="manual_escalation">Manual</option>
+                            </select>
+                            <select id="filterSentimentSelect" class="glass-select">
+                                <option value="all">All Sentiments</option>
+                                <option value="Negative">Negative</option>
+                                <option value="Neutral">Neutral</option>
+                                <option value="Positive">Positive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Tickets Glass Table -->
+                    <div class="glass-table-wrapper glass-panel">
+                        <table class="glass-table" id="ticketsTable">
+                            <thead>
+                                <tr>
+                                    <th>Ticket ID</th>
+                                    <th>Session ID</th>
+                                    <th>Query Summary</th>
+                                    <th>Intent</th>
+                                    <th>Sentiment</th>
+                                    <th>Trigger Reason</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ticketsTableBody">
+                                <!-- Populated dynamically by JS -->
+                            </tbody>
+                        </table>
+                        <div class="empty-state" id="ticketsEmptyState">
+                            <div class="empty-icon">🎉</div>
+                            <h3>No pending escalated tickets</h3>
+                            <p>All student inquiries are being resolved automatically by the AI system.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL: MANUAL ESCALATION -->
+    <!-- ========================================== -->
+    <div class="glass-modal-backdrop" id="escalateModal">
+        <div class="glass-modal glass-panel">
+            <div class="modal-header">
+                <div class="modal-title-wrap">
+                    <span class="modal-icon">🎫</span>
+                    <h3>Request Human Support Escalation</h3>
+                </div>
+                <button class="modal-close-btn" id="closeEscalateModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-desc">
+                    If the AI assistant was unable to resolve your matter, you can immediately open a formal support ticket to reach the University Academic Office.
+                </p>
+                <div class="form-group">
+                    <label for="escalateReasonSelect">Reason for Escalation:</label>
+                    <select id="escalateReasonSelect" class="glass-select">
+                        <option value="complex_matter">Complex or Unresolved Academic Query</option>
+                        <option value="grievance_dispute">Dispute / Administrative Grievance</option>
+                        <option value="financial_exception">Fee Payment Exception / Financial Aid</option>
+                        <option value="urgent_hostel">Urgent Hostel Accommodation Concern</option>
+                        <option value="special_accommodation">Exam Special Accommodation Request</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="escalateDetailsInput">Additional Details:</label>
+                    <textarea id="escalateDetailsInput" rows="3" class="glass-textarea" placeholder="Describe your situation in detail..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn-cancel" id="cancelEscalateModalBtn">Cancel</button>
+                <button class="modal-btn-submit" id="submitEscalateBtn">Generate Official Ticket</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TOAST NOTIFICATIONS -->
+    <!-- ========================================== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+{
+  "model": "TF-IDF (unigrams+bigrams, sublinear_tf) + LogisticRegression(class_weight=balanced)",
+  "validation_rows": 484,
+  "train_rows": 3378,
+  "accuracy": 1.0,
+  "macro_f1": 1.0,
+  "weighted_f1": 1.0,
+  "mean_max_class_probability": 0.9168934919667536,
+  "nearest_train_tfidf_cosine_similarity": {
+    "median": 0.8662822202545726,
+    "p90": 0.9055452028247728,
+    "share_at_least_0_80": 0.9772727272727273,
+    "share_at_least_0_90": 0.13636363636363635
+  },
+  "per_class": {
+    "admissions": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 100.0
+    },
+    "exams": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 107.0
+    },
+    "fees": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 95.0
+    },
+    "grievance": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 49.0
+    },
+    "hostel": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 66.0
+    },
+    "library": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 67.0
+    }
+  },
+  "classes": [
+    "admissions",
+    "exams",
+    "fees",
+    "grievance",
+    "hostel",
+    "library"
+  ],
+  "test_split_used": false,
+  "notes": [
+    "Validation metrics are preliminary model-selection results, not final held-out performance.",
+    "Near-duplicate families may still cross partitions even though exact normalized queries are grouped; inspect similarity diagnostics before interpreting validation scores.",
+    "No out_of_scope class exists in the source labels; confidence alone is not calibrated and must not be treated as a safe OOD detector.",
+    "No user_query_type, confidence_score, escalated, user_rating, timestamp, session_id, resolution_status, or is_anomaly field was used as a feature."
+  ]
+}

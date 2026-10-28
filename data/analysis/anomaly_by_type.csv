@@ -1,0 +1,5 @@
+user_query_type,count
+Anomaly_Ambiguous_Intent,44
+Anomaly_Malformed_Input,33
+Anomaly_OOD_Query,50
+Fault_Gateway_Timeout,45
